@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Solutio Tech: soluções em tecnologia com programação, suporte técnico e impacto social. Seu problema, nossa solução.">
+    <meta name="keywords" content="tecnologia, desenvolvimento, software, suporte técnico, programação">
     <title>Solutio Tech - Seu problema, nossa solução</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
     <style>
         :root {
             --primary: #2a5bd7;
@@ -11,6 +14,17 @@
             --dark: #1a1a2e;
             --light: #f8f9fa;
             --success: #28a745;
+            --text: #333;
+            --bg: white;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --light: #1a1a2e;
+                --dark: #f8f9fa;
+                --text: #f0f0f0;
+                --bg: #121212;
+            }
         }
         
         * {
@@ -21,9 +35,10 @@
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
         
         header {
@@ -53,24 +68,24 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            text-decoration: none;
+            color: white;
         }
         
-        .logo-icon {
-            width: 50px;
+        .logo-img {
             height: 50px;
-            background-color: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--dark);
+            width: auto;
         }
         
         .logo-text {
             font-size: 1.8rem;
             font-weight: 700;
+        }
+        
+        .slogan {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 3px;
         }
         
         nav ul {
@@ -86,10 +101,27 @@
             transition: all 0.3s ease;
             padding: 5px 10px;
             border-radius: 5px;
+            position: relative;
         }
         
         nav a:hover {
             background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 70%;
         }
         
         .hero {
@@ -108,13 +140,13 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 1rem;
             animation: fadeIn 1.5s ease-in-out;
         }
         
         .hero p {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
             margin-bottom: 2rem;
             animation: fadeIn 2s ease-in-out;
         }
@@ -132,6 +164,7 @@
             cursor: pointer;
             font-size: 1.1rem;
             animation: fadeIn 2.5s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
@@ -142,16 +175,23 @@
         .btn-primary {
             background-color: var(--primary);
             color: white;
+            margin-left: 15px;
         }
         
         section {
             padding: 80px 0;
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
         }
         
         .section-title {
             text-align: center;
             margin-bottom: 50px;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             color: var(--primary);
             position: relative;
         }
@@ -172,15 +212,17 @@
         }
         
         .service-card {
-            background-color: white;
+            background-color: var(--bg);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
         .service-icon {
@@ -222,6 +264,11 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
         }
         
         .about-content h2 {
@@ -229,7 +276,7 @@
         }
         
         .departments {
-            background-color: #f1f3f5;
+            background-color: var(--light);
         }
         
         .dept-cards {
@@ -239,12 +286,13 @@
         }
         
         .dept-card {
-            background-color: white;
+            background-color: var(--bg);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
             transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .dept-card:hover {
@@ -271,12 +319,13 @@
         }
         
         .impact-item {
-            background-color: white;
+            background-color: var(--bg);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 250px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .impact-item:hover {
@@ -289,6 +338,71 @@
             margin-bottom: 15px;
         }
         
+        .testimonials {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .testimonial-card p {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-card cite {
+            font-style: normal;
+            font-weight: bold;
+            display: block;
+            text-align: right;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
         .cta {
             background: linear-gradient(135deg, var(--primary), #1a3a8f);
             color: white;
@@ -297,7 +411,7 @@
         }
         
         .cta h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             margin-bottom: 20px;
         }
         
@@ -305,6 +419,46 @@
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 30px;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
         }
         
         footer {
@@ -343,6 +497,28 @@
             color: white;
         }
         
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -351,9 +527,39 @@
             font-size: 0.9rem;
         }
         
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
         
         /* Responsividade */
@@ -368,20 +574,30 @@
                 justify-content: center;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
             .about .container {
                 grid-template-columns: 1fr;
             }
             
             .about-img {
                 order: -1;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .btn-primary {
+                margin-left: 0;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -391,12 +607,18 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <span>&lt;/&gt;</span>
+                <a href="#home" class="logo">
+                    <!-- Logo como SVG inline baseado na descrição -->
+                    <svg class="logo-img" width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="23" fill="#ffcc00"/>
+                        <path d="M18 15L32 15L25 35Z" fill="none" stroke="#1a1a2e" stroke-width="2"/>
+                        <text x="25" y="25" font-family="Arial" font-size="10" fill="#1a1a2e" text-anchor="middle" dominant-baseline="middle">&lt;/&gt;</text>
+                    </svg>
+                    <div>
+                        <div class="logo-text">Solutio Tech</div>
+                        <div class="slogan">Seu problema, nossa solução</div>
                     </div>
-                    <div class="logo-text">Solutio Tech</div>
-                </div>
+                </a>
                 <nav>
                     <ul>
                         <li><a href="#home">Início</a></li>
@@ -415,8 +637,10 @@
         <div class="hero-content">
             <h1>Solutio Tech</h1>
             <p>Seu problema, nossa solução.</p>
-            <a href="#services" class="btn">Nossos Serviços</a>
-            <a href="#contact" class="btn btn-primary">Fale Conosco</a>
+            <div class="hero-buttons">
+                <a href="#services" class="btn">Nossos Serviços</a>
+                <a href="#contact" class="btn btn-primary">Fale Conosco</a>
+            </div>
         </div>
     </section>
 
@@ -458,7 +682,7 @@
     <section class="about" id="about">
         <div class="container">
             <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Equipe Solutio Tech">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Equipe Solutio Tech" loading="lazy">
             </div>
             <div class="about-content">
                 <h2 class="section-title">Quem Somos</h2>
@@ -500,6 +724,40 @@
         </div>
     </section>
 
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>A Solutio Tech desenvolveu um sistema de gestão que transformou nosso negócio. Agora economizamos 15 horas por semana em processos manuais.</p>
+                    <cite>— João Silva, Empresa XYZ</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>O aplicativo que criaram para nossa escola melhorou significativamente a comunicação com os pais. Fácil de usar e muito eficiente.</p>
+                    <cite>— Maria Souza, Escola ABC</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>Como estudante, aproveitei o desconto para desenvolver meu app de TCC. O suporte foi excepcional em todas as etapas.</p>
+                    <cite>— Carlos Oliveira, Estudante</cite>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Projetos Concluídos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfação do Cliente</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Desconto para Estudantes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="social-impact" id="impact">
         <div class="container">
             <h2 class="section-title">Nosso Impacto Social</h2>
@@ -524,11 +782,39 @@
         </div>
     </section>
 
-    <section class="cta" id="contact">
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <div class="contact-form">
+                <form id="contactForm" action="https://formsubmit.co/seu-email@exemplo.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
         <div class="container">
             <h2>Pronto para resolver seus problemas com tecnologia?</h2>
             <p>Entre em contato conosco e descubra como podemos ajudar seu negócio ou vida pessoal a se beneficiar das melhores soluções tecnológicas.</p>
-            <a href="mailto:contato@solutiotech.com" class="btn">Envie um E-mail</a>
+            <a href="#contact" class="btn">Envie uma Mensagem</a>
             <a href="tel:+5511999999999" class="btn btn-primary">Ligue Agora</a>
         </div>
     </section>
@@ -539,7 +825,7 @@
                 <div class="footer-column">
                     <h3>Solutio Tech</h3>
                     <p>Seu problema, nossa solução.</p>
-                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                    <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -578,5 +864,89 @@
             </div>
         </div>
     </footer>
+
+    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Observador de interseção para animações ao rolar
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Formulário de contato
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                
+                // Simulação de envio (substituir por AJAX real)
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                        this.reset();
+                    } else {
+                        throw new Error('Erro ao enviar mensagem');
+                    }
+                })
+                .catch(error => {
+                    alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais tarde ou entre em contato por telefone.');
+                    console.error(error);
+                });
+            });
+        }
+        
+        // Dark mode toggle
+        const darkModeToggle = document.createElement('button');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        darkModeToggle.style.position = 'fixed';
+        darkModeToggle.style.bottom = '100px';
+        darkModeToggle.style.right = '30px';
+        darkModeToggle.style.width = '50px';
+        darkModeToggle.style.height = '50px';
+        darkModeToggle.style.borderRadius = '50%';
+        darkModeToggle.style.backgroundColor = 'var(--primary)';
+        darkModeToggle.style.color = 'white';
+        darkModeToggle.style.border = 'none';
+        darkModeToggle.style.cursor = 'pointer';
+        darkModeToggle.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+        darkModeToggle.style.zIndex = '100';
+        darkModeToggle.style.display = 'flex';
+        darkModeToggle.style.alignItems = 'center';
+        darkModeToggle.style.justifyContent = 'center';
+        darkModeToggle.style.fontSize = '1.2rem';
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        document.body.appendChild(darkModeToggle);
+    </script>
 </body>
 </html>
