@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutio Tech - Seu problema, nossa solução</title>
+    <style>
+        :root {
+            --primary: #2a5bd7;
+            --secondary: #ffcc00;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a3a8f);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            margin: 15px auto;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            background-color: var(--primary);
+            color: white;
+            font-size: 2.5rem;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .about {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content h2 {
+            margin-bottom: 20px;
+        }
+        
+        .departments {
+            background-color: #f1f3f5;
+        }
+        
+        .dept-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .dept-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dept-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .social-impact {
+            text-align: center;
+        }
+        
+        .impact-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .impact-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        .impact-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .impact-item i {
+            font-size: 2rem;
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, var(--primary), #1a3a8f);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                order: -1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <span>&lt;/&gt;</span>
+                    </div>
+                    <div class="logo-text">Solutio Tech</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#departments">Departamentos</a></li>
+                        <li><a href="#impact">Impacto Social</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Solutio Tech</h1>
+            <p>Seu problema, nossa solução.</p>
+            <a href="#services" class="btn">Nossos Serviços</a>
+            <a href="#contact" class="btn btn-primary">Fale Conosco</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">Nossos Serviços Principais</h2>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Desenvolvimento de Software</h3>
+                        <p>Soluções personalizadas para sua empresa, desde aplicativos web até sistemas complexos de gestão.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Aplicativos Mobile</h3>
+                        <p>Desenvolvimento de aplicativos iOS e Android sob medida para suas necessidades.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Automação de Processos</h3>
+                        <p>Automatizamos tarefas repetitivas para aumentar a eficiência do seu negócio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Equipe Solutio Tech">
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">Quem Somos</h2>
+                <p>A Solutio Tech nasceu da paixão por resolver problemas através da tecnologia. Nossa equipe é composta por especialistas em desenvolvimento de software que acreditam que a tecnologia deve ser acessível e útil para todos.</p>
+                <p>Combinamos inovação técnica com serviços essenciais para criar soluções que realmente fazem a diferença na vida de nossos clientes e na comunidade.</p>
+                <p>Nossa abordagem única nos permite oferecer serviços de alta qualidade enquanto mantemos preços competitivos e acessíveis.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="departments" id="departments">
+        <div class="container">
+            <h2 class="section-title">Nossos Departamentos</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 50px;">Além do nosso núcleo de programação, oferecemos serviços rápidos que geram valor imediato para nossos clientes e fluxo de caixa para sustentar nossa operação.</p>
+            <div class="dept-cards">
+                <div class="dept-card">
+                    <div class="dept-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>Acessórios & Periféricos</h3>
+                    <p>Venda de cabos, carregadores, fones, capinhas e outros acessórios de tecnologia com qualidade garantida.</p>
+                    <p class="highlight" style="margin-top: 15px; font-weight: bold; color: var(--primary);">Exemplo: Vendendo 10 capinhas a R$20 cada → R$200 de lucro em um único dia.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Suporte Técnico</h3>
+                    <p>Configuração de dispositivos, instalação de programas, recuperação de dados e solução de problemas técnicos.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <h3>Delivery Tech</h3>
+                    <p>Consertos rápidos e entrega de acessórios no local do cliente, com agilidade e conveniência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-impact" id="impact">
+        <div class="container">
+            <h2 class="section-title">Nosso Impacto Social</h2>
+            <p>Acreditamos que a tecnologia deve ser inclusiva e acessível a todos. Por isso, desenvolvemos iniciativas para beneficiar a comunidade.</p>
+            <div class="impact-items">
+                <div class="impact-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Descontos para Estudantes</h3>
+                    <p>Oferecemos descontos especiais em todos os nossos serviços para estudantes comprovados.</p>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Suporte a Idosos</h3>
+                    <p>Preços diferenciados e atendimento personalizado para a terceira idade.</p>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-gift"></i>
+                    <h3>Doações</h3>
+                    <p>Doação de acessórios e serviços básicos para alunos carentes de escolas públicas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Pronto para resolver seus problemas com tecnologia?</h2>
+            <p>Entre em contato conosco e descubra como podemos ajudar seu negócio ou vida pessoal a se beneficiar das melhores soluções tecnológicas.</p>
+            <a href="mailto:contato@solutiotech.com" class="btn">Envie um E-mail</a>
+            <a href="tel:+5511999999999" class="btn btn-primary">Ligue Agora</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Solutio Tech</h3>
+                    <p>Seu problema, nossa solução.</p>
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#">Desenvolvimento de Software</a></li>
+                        <li><a href="#">Aplicativos Mobile</a></li>
+                        <li><a href="#">Automação de Processos</a></li>
+                        <li><a href="#">Suporte Técnico</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Tecnologia, 123</li>
+                        <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@solutiotech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Solutio Tech. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
